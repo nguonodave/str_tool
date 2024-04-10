@@ -108,6 +108,7 @@ func main() {
 	// check for file reading errors
 	if read_err != nil {
 		log.Fatalf("unable to read file: %s", read_err)
+		fmt.Println()
 	}
 
 	modifications()
@@ -124,11 +125,13 @@ func main() {
 
 	// check for file creating errors
 	if create_err != nil {
-		panic(create_err)
+		log.Fatalf("unable to create file: %s", create_err)
+		fmt.Println()
 	}
 
 	if _, write_err := io.WriteString(output_file, final_output_sentence); write_err != nil {
-		panic(write_err)
+		log.Fatalf("unable to write to file: %s", read_err)
+		fmt.Println()
 	}
 	defer output_file.Close()
 
