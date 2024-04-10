@@ -17,11 +17,12 @@ import (
 var (
 	sample                  = os.Args[1]
 	result                  = os.Args[2]
-	file_content, read_err  = os.ReadFile(sample)          // reads and stores the contents of the file in a variable, file_content
-	sentence                = string(file_content)         // converts the contents from bytes to a string and store the result to a variable, sentence
-	words                   = strings.Split(sentence, " ") // splits the sentence into array of words by using a space as a separator
-	new_arr_result          = []string{}                   // empty array for storing non-instruction words
-	output_file, create_err = os.Create(result)            // creates a file for storing the final result, which is the sentence converted from the array
+	file_content, read_err  = os.ReadFile(sample)                                                  // reads and stores the contents of the file in a variable, file_content
+	sentence                = string(file_content)                                                 // converts the contents from bytes to a string and store the result to a variable, sentence
+	words                   = strings.Split(sentence, " ")                                         // splits the sentence into array of words by using a space as a separator
+	new_arr_result          = []string{}                                                           // empty array for storing non-instruction words
+	output_file, create_err = os.Create(result)                                                    // creates a file for storing the final result, which is the sentence converted from the array
+	letters                 = []string{"a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "H", "h"} // array of vowels and "h"
 )
 
 /*
@@ -87,6 +88,13 @@ func modifications() {
 			dec_num, _ := strconv.ParseInt(hex_num, 2, 64)
 			hex_num = strconv.Itoa(int(dec_num))
 			words[i-1] = hex_num
+		}
+
+		// a to an
+		for _, letter := range letters {
+			if word == "a" && string(words[i+1][0]) == letter {
+				words[i] = "an"
+			}
 		}
 	}
 }
