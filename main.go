@@ -23,6 +23,7 @@ var (
 	new_arr_result          = []string{}                                                           // empty array for storing non-instruction words
 	output_file, create_err = os.Create(result)                                                    // creates a file for storing the final result, which is the sentence converted from the array
 	letters                 = []string{"a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "H", "h"} // array of vowels and "h"
+	punctuations            = []string{".", ",", "!", "?", ":", ";"}                               // array of punctuations
 )
 
 /*
@@ -120,8 +121,13 @@ func main() {
 	output_sentence := strings.Join(new_arr_result, " ")
 
 	instructions := `\((up|low|cap|hex|bin)(,\s*\d+)?\)\s*`
-	re := regexp.MustCompile(instructions)
-	final_output_sentence := re.ReplaceAllString(output_sentence, "")
+	remove_instructions := regexp.MustCompile(instructions)
+	semi_output_sentence := remove_instructions.ReplaceAllString(output_sentence, "")
+
+	// remove spaces before punctuations
+	spaces := `( +)([.,!?:;]{1,3})( *)`
+	remove_spaces := regexp.MustCompile(spaces)
+	final_output_sentence := remove_spaces.ReplaceAllString(semi_output_sentence, "$2 ")
 
 	// check for file creating errors
 	if create_err != nil {
