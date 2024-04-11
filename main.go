@@ -23,7 +23,6 @@ var (
 	new_arr_result          = []string{}                                                           // empty array for storing non-instruction words
 	output_file, create_err = os.Create(result)                                                    // creates a file for storing the final result, which is the sentence converted from the array
 	letters                 = []string{"a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "H", "h"} // array of vowels and "h"
-	punctuations            = []string{".", ",", "!", "?", ":", ";"}                               // array of punctuations
 )
 
 /*
