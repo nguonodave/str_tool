@@ -121,12 +121,18 @@ func main() {
 
 	instructions := `\((up|low|cap|hex|bin)(,\s*\d+)?\)\s*`
 	remove_instructions := regexp.MustCompile(instructions)
-	semi_output_sentence := remove_instructions.ReplaceAllString(output_sentence, "")
+	output_sentence_1 := remove_instructions.ReplaceAllString(output_sentence, "")
 
-	// remove spaces before punctuations
-	spaces := `( +)([.,!?:;]{1,3})( *)`
+	// remove spaces before punctuations and add space after punctuation if none
+	// this metthod introduces a space after a punctuation incase they are groups of punctuations
+	// solved it with the next regex pattern
+	spaces := `(\s+)([.,!?:;])`
 	remove_spaces := regexp.MustCompile(spaces)
-	final_output_sentence := remove_spaces.ReplaceAllString(semi_output_sentence, "$2 ")
+	output_sentence_2 := remove_spaces.ReplaceAllString(output_sentence_1, "$2 ")
+
+	spaced_punct := `([.,!?:;])(\s+)([.,!?:;])`
+	remove_spaced_punct := regexp.MustCompile(spaced_punct)
+	final_output_sentence := remove_spaced_punct.ReplaceAllString(output_sentence_2, "$1$3")
 
 	// check for file creating errors
 	if create_err != nil {
