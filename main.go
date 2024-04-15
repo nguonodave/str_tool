@@ -8,5 +8,5 @@ import goReloaded "goReloaded/text_tool"
 --> defer output_file.Close() is for file handling
 */
 func main() {
-	goReloaded.Modifications2()
+	goReloaded.FinalTool()
 }

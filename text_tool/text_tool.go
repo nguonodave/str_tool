@@ -37,7 +37,7 @@ var (
 --> itoa is for converting the int(int64 to int) number to string
 --> for capitalizing use the format in the library golang.org/x/text/cases since strings.Title is depricated
 */
-func Modifications() {
+func Instructions() {
 	for i, word := range words {
 		// (up) to uppercase
 		// when there is no number
@@ -106,14 +106,14 @@ func Modifications() {
 	}
 }
 
-func Modifications2() {
+func FinalTool() {
 	// check for file reading errors
 	if read_err != nil {
 		log.Fatalf("unable to read file: %s", read_err)
 		fmt.Println()
 	}
 
-	Modifications()
+	Instructions()
 
 	for _, item := range words {
 		new_arr_result = append(new_arr_result, item)
