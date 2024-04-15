@@ -8,9 +8,6 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
-
-	"golang.org/x/text/cases"
-	"golang.org/x/text/language"
 )
 
 // initialization of global variables
@@ -35,7 +32,6 @@ var (
 --> ParseInt converts the hex number to int64
 --> output error if there is one, meaning it's not a hex value
 --> itoa is for converting the int(int64 to int) number to string
---> for capitalizing use the format in the library golang.org/x/text/cases since strings.Title is depricated
 */
 func Instructions() {
 	for i, word := range words {
@@ -54,12 +50,12 @@ func Instructions() {
 		// (cap) to titlecase
 		// when there is no number
 		if word == "(cap)" {
-			words[i-1] = cases.Title(language.English, cases.Compact).String(words[i-1])
+			words[i-1] = strings.Title(words[i-1])
 		} else if word == "(cap," { // when there is a number
 			n := strings.Trim(words[i+1], words[i+1][1:])
 			nmbr, _ := strconv.Atoi(string(n))
 			for j := 1; j <= nmbr; j++ {
-				words[i-j] = cases.Title(language.English, cases.Compact).String(words[i-j])
+				words[i-j] = strings.Title(words[i-j])
 			}
 		}
 
