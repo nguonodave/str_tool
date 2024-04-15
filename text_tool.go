@@ -1,4 +1,4 @@
-package main
+package goReloaded
 
 import (
 	"fmt"
@@ -37,7 +37,7 @@ var (
 --> itoa is for converting the int(int64 to int) number to string
 --> for capitalizing use the format in the library golang.org/x/text/cases since strings.Title is depricated
 */
-func modifications() {
+func Modifications() {
 	for i, word := range words {
 		// (up) to uppercase
 		// when there is no number
@@ -106,19 +106,14 @@ func modifications() {
 	}
 }
 
-/*
---> after all modifications have been done, append words that are not instructions, i.e not "(up), (cap, 4) etc", to an empty array, "new_array_results
---> write the sentence to the created file using io.WriteString
---> defer output_file.Close() is for file handling
-*/
-func main() {
+func Modifications2() {
 	// check for file reading errors
 	if read_err != nil {
 		log.Fatalf("unable to read file: %s", read_err)
 		fmt.Println()
 	}
 
-	modifications()
+	Modifications()
 
 	for _, item := range words {
 		new_arr_result = append(new_arr_result, item)
