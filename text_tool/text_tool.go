@@ -140,9 +140,14 @@ func Modifications2() {
 	output_sentence_3 := remove_spaced_punct.ReplaceAllString(output_sentence_2, "$2")
 
 	// remove spaces immediately after and before apostrophe
-	space_apostrophe := `(')(\s*)(.*?)(\s*)(')`
+	space_apostrophe := `(\')(\s*)(.*?)(\s*)(\')`
 	remove_apostrophe := regexp.MustCompile(space_apostrophe)
-	final_output_sentence := remove_apostrophe.ReplaceAllString(output_sentence_3, "$1$3$5")
+	output_sentence_4 := remove_apostrophe.ReplaceAllString(output_sentence_3, "$1$3$5")
+
+	// removing multiple spaces
+	multi_spaces := `(\s)(\s+)`
+	remove_multi_spaces := regexp.MustCompile(multi_spaces)
+	final_output_sentence := remove_multi_spaces.ReplaceAllString(output_sentence_4, "$1")
 
 	// check for file creating errors
 	if create_err != nil {
