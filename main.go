@@ -31,8 +31,9 @@ var (
 --> words[i-1] this selects the initial item of the current iteration in the array loop
 --> in case there is a number use trim to remove all the characters after the number
 --> atoi is for converting the number in string form to integer
+--> loop through the number to modify the initial words per the specific number
 --> ParseInt converts the hex number to int64
---> if there is an error, meaning it's not a hex value
+--> output error if there is one, meaning it's not a hex value
 --> itoa is for converting the int(int64 to int) number to string
 --> for capitalizing use the format in the library golang.org/x/text/cases since strings.Title is depricated
 */
@@ -129,17 +130,21 @@ func main() {
 	remove_instructions := regexp.MustCompile(instructions)
 	output_sentence_1 := remove_instructions.ReplaceAllString(output_sentence, "")
 
-	// remove spaces before punctuations and add space after punctuation if none
-	// this metthod introduces a space after a punctuation incase they are groups of punctuations
-	// solved it with the next regex pattern
+	/*
+		--> remove spaces before punctuations and add space after punctuation if none
+		--> this metthod introduces a space after a punctuation incase they are groups of punctuations
+		--> solved it with the next regex pattern
+	*/
 	spaces := `(\s+)([.,!?:;])`
 	remove_spaces := regexp.MustCompile(spaces)
 	output_sentence_2 := remove_spaces.ReplaceAllString(output_sentence_1, "$2 ")
 
+	// remove spaces between punctuations
 	spaced_punct := `([.,!?:;])(\s+)([.,!?:;])`
 	remove_spaced_punct := regexp.MustCompile(spaced_punct)
 	output_sentence_3 := remove_spaced_punct.ReplaceAllString(output_sentence_2, "$1$3")
 
+	// remove spaces immediately after and before apostrophe
 	space_apostrophe := `(')(\s*)(.*?)(\s*)(')`
 	remove_apostrophe := regexp.MustCompile(space_apostrophe)
 	final_output_sentence := remove_apostrophe.ReplaceAllString(output_sentence_3, "$1$3$5")
