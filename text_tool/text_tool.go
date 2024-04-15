@@ -149,6 +149,9 @@ func FinalTool() {
 	remove_multi_spaces := regexp.MustCompile(multi_spaces)
 	final_output_sentence := remove_multi_spaces.ReplaceAllString(output_sentence_4, "$1")
 
+	// removed spaces after end of sentence
+	final_output_sentence = strings.TrimSpace(final_output_sentence)
+
 	// check for file creating errors
 	if create_err != nil {
 		log.Fatalf("unable to create file: %s", create_err)
