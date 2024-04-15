@@ -1,6 +1,6 @@
 package main
 
-import "goReloaded"
+import goReloaded "goReloaded/text_tool"
 
 /*
 --> after all modifications have been done, append words that are not instructions, i.e not "(up), (cap, 4) etc", to an empty array, "new_array_results

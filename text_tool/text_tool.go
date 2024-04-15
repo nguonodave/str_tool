@@ -135,9 +135,9 @@ func Modifications2() {
 	output_sentence_2 := remove_spaces.ReplaceAllString(output_sentence_1, "$2 ")
 
 	// remove spaces between punctuations
-	spaced_punct := `([.,!?:;])(\s+)([.,!?:;])`
+	spaced_punct := `(\s+)([.,!?:;])`
 	remove_spaced_punct := regexp.MustCompile(spaced_punct)
-	output_sentence_3 := remove_spaced_punct.ReplaceAllString(output_sentence_2, "$1$3")
+	output_sentence_3 := remove_spaced_punct.ReplaceAllString(output_sentence_2, "$2")
 
 	// remove spaces immediately after and before apostrophe
 	space_apostrophe := `(')(\s*)(.*?)(\s*)(')`
