@@ -160,5 +160,5 @@ func FinalTool() {
 	}
 	defer output_file.Close()
 
-	fmt.Println(final_output_sentence)
+	// fmt.Println(final_output_sentence)
 }
