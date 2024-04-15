@@ -77,17 +77,23 @@ func modifications() {
 		// (hex) to decimal
 		if word == "(hex)" {
 			hex_num := words[i-1]
-			dec_num, _ := strconv.ParseInt(hex_num, 16, 64)
-			hex_num = strconv.Itoa(int(dec_num))
-			words[i-1] = hex_num
+			if dec_num, hex_err := strconv.ParseInt(hex_num, 16, 64); hex_err != nil {
+				log.Fatalf("the value might not be a hex number: %s", hex_err)
+			} else {
+				hex_num = strconv.Itoa(int(dec_num))
+				words[i-1] = hex_num
+			}
 		}
 
 		// (bin) to decimal
 		if word == "(bin)" {
-			hex_num := words[i-1]
-			dec_num, _ := strconv.ParseInt(hex_num, 2, 64)
-			hex_num = strconv.Itoa(int(dec_num))
-			words[i-1] = hex_num
+			bin_num := words[i-1]
+			if dec_num, bin_err := strconv.ParseInt(bin_num, 2, 64); bin_err != nil {
+				log.Fatalf("the value might not be a binary number: %s", bin_err)
+			} else {
+				bin_num = strconv.Itoa(int(dec_num))
+				words[i-1] = bin_num
+			}
 		}
 
 		// a to an
