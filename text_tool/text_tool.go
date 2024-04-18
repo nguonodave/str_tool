@@ -40,10 +40,16 @@ func Instructions() {
 		if word == "(up)" {
 			words[i-1] = strings.ToUpper(words[i-1])
 		} else if word == "(up," { // when there is a number
-			n := strings.Trim(words[i+1], words[i+1][1:])
+			up_str := words[i] + " " + words[i+1]
+			get_dig := regexp.MustCompile(`(\(up,\s+)(\d+)(\).*)`)
+			n := get_dig.ReplaceAllString(up_str, "$2")
 			nmbr, _ := strconv.Atoi(string(n))
-			for j := 1; j <= nmbr; j++ {
-				words[i-j] = strings.ToUpper(words[i-j])
+			if nmbr <= i {
+				for j := 1; j <= nmbr; j++ {
+					words[i-j] = strings.ToUpper(words[i-j])
+				}
+			} else {
+				fmt.Println("the number of words to be modified exceeds the given number in up")
 			}
 		}
 
@@ -52,10 +58,16 @@ func Instructions() {
 		if word == "(cap)" {
 			words[i-1] = strings.Title(words[i-1])
 		} else if word == "(cap," { // when there is a number
-			n := strings.Trim(words[i+1], words[i+1][1:])
+			cap_str := words[i] + " " + words[i+1]
+			get_dig := regexp.MustCompile(`(\(cap,\s+)(\d+)(\).*)`)
+			n := get_dig.ReplaceAllString(cap_str, "$2")
 			nmbr, _ := strconv.Atoi(string(n))
-			for j := 1; j <= nmbr; j++ {
-				words[i-j] = strings.Title(words[i-j])
+			if nmbr <= i {
+				for j := 1; j <= nmbr; j++ {
+					words[i-j] = strings.Title(words[i-j])
+				}
+			} else {
+				fmt.Println("the number of words to be modified exceeds the given number in cap")
 			}
 		}
 
@@ -64,10 +76,16 @@ func Instructions() {
 		if word == "(low)" {
 			words[i-1] = strings.ToLower(words[i-1])
 		} else if word == "(low," { // when there is a number
-			n := strings.Trim(words[i+1], words[i+1][1:])
-			nmbr, _ := strconv.Atoi(n)
-			for j := 1; j <= nmbr; j++ {
-				words[i-j] = strings.ToLower(words[i-j])
+			low_str := words[i] + " " + words[i+1]
+			get_dig := regexp.MustCompile(`(\(low,\s+)(\d+)(\).*)`)
+			n := get_dig.ReplaceAllString(low_str, "$2")
+			nmbr, _ := strconv.Atoi(string(n))
+			if nmbr <= i {
+				for j := 1; j <= nmbr; j++ {
+					words[i-j] = strings.ToLower(words[i-j])
+				}
+			} else {
+				fmt.Println("the number of words to be modified exceeds the given number in low")
 			}
 		}
 
@@ -160,5 +178,5 @@ func FinalTool() {
 	}
 	defer output_file.Close()
 
-	// fmt.Println(final_output_sentence)
+	fmt.Println(final_output_sentence)
 }
